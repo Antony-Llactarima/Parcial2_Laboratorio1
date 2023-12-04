@@ -42,3 +42,43 @@ dicc_coins = {
 dicc_vida = {
     'vida': vida
 }
+
+# DICCIONARIO DE ENEMIGO NIVEL 1
+dicc_enemy_1 = {
+    "1": enemy_1_1,
+    "2": enemy_1_2,
+    "3": enemy_1_3,
+    "4": enemy_1_4,
+    "5": enemy_1_5,
+    "6": enemy_1_6,
+    "7": enemy_1_1_l,
+    "8": enemy_1_2_l,
+    "9": enemy_1_3_l,
+    "10": enemy_1_4_l,
+    "11": enemy_1_5_l,
+    "12": enemy_1_6_l
+}
+
+# DICCIONARIO DE ENEMIGO NIVEL 2
+dicc_enemy_2 = {
+    "1": enemy_2_1,
+    "2": enemy_2_2,
+    "3": enemy_2_3,
+    "4": enemy_2_4,
+    "6": enemy_2_1_l,
+    "7": enemy_2_2_l,
+    "8": enemy_2_3_l,
+    "9": enemy_2_4_l,
+}
+
+# DICCIONARIO DE ENEMIGO NIVEL 3
+dicc_enemy_3 = {
+    "1": enemy_3_1,
+    "2": enemy_3_2,
+    "3": enemy_3_3,
+    "4": enemy_3_4,
+    "6": enemy_3_1_l,
+    "7": enemy_3_2_l,
+    "8": enemy_3_3_l,
+    "9": enemy_3_4_l,
+}

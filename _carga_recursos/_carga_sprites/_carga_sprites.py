@@ -78,3 +78,98 @@ try:
     vida = pg.transform.scale(vida,(50,50))
 except:
     pass
+
+# CARGA DE SPRITES DE LOS ENEMIGOS
+try:
+    crudo_enemigo_1_1 = pg.image.load(os.path.join(dir_actual,"recursos\Sprites\_enemigos\PNG\lizard\Walk1.png"))
+    crudo_enemigo_1_1.set_clip(80,110,60,45)
+    enemy_1_1 = crudo_enemigo_1_1.subsurface(crudo_enemigo_1_1.get_clip())
+    enemy_1_1 = pg.transform.scale(enemy_1_1,(40,60))
+    
+    crudo_enemigo_1_2 = pg.image.load(os.path.join(dir_actual,"recursos\Sprites\_enemigos\PNG\lizard\Walk2.png"))
+    crudo_enemigo_1_2.set_clip(80,110,60,45)
+    enemy_1_2 = crudo_enemigo_1_2.subsurface(crudo_enemigo_1_2.get_clip())
+    enemy_1_2 = pg.transform.scale(enemy_1_2,(40,60))
+    
+    crudo_enemigo_1_3 = pg.image.load(os.path.join(dir_actual,"recursos\Sprites\_enemigos\PNG\lizard\Walk3.png"))
+    crudo_enemigo_1_3.set_clip(80,110,60,45)
+    enemy_1_3 = crudo_enemigo_1_3.subsurface(crudo_enemigo_1_3.get_clip())
+    enemy_1_3 = pg.transform.scale(enemy_1_3,(40,60))
+    
+    crudo_enemigo_1_4 = pg.image.load(os.path.join(dir_actual,"recursos\Sprites\_enemigos\PNG\lizard\Walk4.png"))
+    crudo_enemigo_1_4.set_clip(80,110,60,45)
+    enemy_1_4 = crudo_enemigo_1_4.subsurface(crudo_enemigo_1_4.get_clip())
+    enemy_1_4 = pg.transform.scale(enemy_1_4,(40,60))
+    
+    crudo_enemigo_1_5 = pg.image.load(os.path.join(dir_actual,"recursos\Sprites\_enemigos\PNG\lizard\Walk5.png"))
+    crudo_enemigo_1_5.set_clip(80,110,60,45)
+    enemy_1_5 = crudo_enemigo_1_5.subsurface(crudo_enemigo_1_5.get_clip())
+    enemy_1_5 = pg.transform.scale(enemy_1_5,(40,60))
+
+    crudo_enemigo_1_6 = pg.image.load(os.path.join(dir_actual,"recursos\Sprites\_enemigos\PNG\lizard\Walk6.png"))
+    crudo_enemigo_1_6.set_clip(80,110,60,45)
+    enemy_1_6 = crudo_enemigo_1_6.subsurface(crudo_enemigo_1_6.get_clip())
+    enemy_1_6 = pg.transform.scale(enemy_1_6,(40,60))
+    
+    enemy_1_1_l = pg.transform.flip(enemy_1_1,True,False)
+    enemy_1_2_l = pg.transform.flip(enemy_1_2,True,False)
+    enemy_1_3_l = pg.transform.flip(enemy_1_3,True,False)
+    enemy_1_4_l = pg.transform.flip(enemy_1_4,True,False)
+    enemy_1_5_l = pg.transform.flip(enemy_1_5,True,False)
+    enemy_1_6_l = pg.transform.flip(enemy_1_6,True,False)
+    
+    # ENEMIGOS NIVEL 2
+    
+    crudo_enemigo_2_1 = pg.image.load(os.path.join(dir_actual,"recursos\Sprites\_enemigos\PNG\jinn_animation\Flight1.png"))
+    crudo_enemigo_2_1.set_clip(24,34,65,80)
+    enemy_2_1 = crudo_enemigo_2_1.subsurface(crudo_enemigo_2_1.get_clip())
+    enemy_2_1 = pg.transform.scale(enemy_2_1,(60,80))
+    
+    crudo_enemigo_2_2 = pg.image.load(os.path.join(dir_actual,"recursos\Sprites\_enemigos\PNG\jinn_animation\Flight2.png"))
+    crudo_enemigo_2_2.set_clip(24,34,65,80)
+    enemy_2_2 = crudo_enemigo_2_2.subsurface(crudo_enemigo_2_2.get_clip())
+    enemy_2_2 = pg.transform.scale(enemy_2_2,(60,80))
+    
+    crudo_enemigo_2_3 = pg.image.load(os.path.join(dir_actual,"recursos\Sprites\_enemigos\PNG\jinn_animation\Flight3.png"))
+    crudo_enemigo_2_3.set_clip(24,34,65,80)
+    enemy_2_3 = crudo_enemigo_2_3.subsurface(crudo_enemigo_2_3.get_clip())
+    enemy_2_3 = pg.transform.scale(enemy_2_3,(60,80))
+    
+    crudo_enemigo_2_4 = pg.image.load(os.path.join(dir_actual,"recursos\Sprites\_enemigos\PNG\jinn_animation\Flight4.png"))
+    crudo_enemigo_2_4.set_clip(24,34,65,80)
+    enemy_2_4 = crudo_enemigo_2_4.subsurface(crudo_enemigo_2_4.get_clip())
+    enemy_2_4 = pg.transform.scale(enemy_2_4,(60,80))
+    
+    enemy_2_1_l = pg.transform.flip(enemy_2_1,True,False)
+    enemy_2_2_l = pg.transform.flip(enemy_2_2,True,False)
+    enemy_2_3_l = pg.transform.flip(enemy_2_3,True,False)
+    enemy_2_4_l = pg.transform.flip(enemy_2_4,True,False)
+    
+    # ENEMIGOS NIVEL 3
+    crudo_enemigo_3_1 = pg.image.load(os.path.join(dir_actual,"recursos\Sprites\_enemigos\PNG\medusa\Walk1.png"))
+    crudo_enemigo_3_1.set_clip(18,38,60,60)
+    enemy_3_1 = crudo_enemigo_3_1.subsurface(crudo_enemigo_3_1.get_clip())
+    enemy_3_1 = pg.transform.scale(enemy_3_1,(60,35))
+    
+    crudo_enemigo_3_2 = pg.image.load(os.path.join(dir_actual,"recursos\Sprites\_enemigos\PNG\medusa\Walk2.png"))
+    crudo_enemigo_3_2.set_clip(18,38,60,60)
+    enemy_3_2 = crudo_enemigo_3_2.subsurface(crudo_enemigo_3_2.get_clip())
+    enemy_3_2 = pg.transform.scale(enemy_3_2,(60,35))
+    
+    crudo_enemigo_3_3 = pg.image.load(os.path.join(dir_actual,"recursos\Sprites\_enemigos\PNG\medusa\Walk3.png"))
+    crudo_enemigo_3_3.set_clip(18,38,60,60)
+    enemy_3_3 = crudo_enemigo_3_3.subsurface(crudo_enemigo_3_3.get_clip())
+    enemy_3_3 = pg.transform.scale(enemy_3_3,(60,35))
+    
+    crudo_enemigo_3_4 = pg.image.load(os.path.join(dir_actual,"recursos\Sprites\_enemigos\PNG\medusa\Walk4.png"))
+    crudo_enemigo_3_4.set_clip(18,38,60,60)
+    enemy_3_4 = crudo_enemigo_3_4.subsurface(crudo_enemigo_3_4.get_clip())
+    enemy_3_4 = pg.transform.scale(enemy_3_4,(60,35))
+    
+    enemy_3_1_l = pg.transform.flip(enemy_3_1,True,False)
+    enemy_3_2_l = pg.transform.flip(enemy_3_2,True,False)
+    enemy_3_3_l = pg.transform.flip(enemy_3_3,True,False)
+    enemy_3_4_l = pg.transform.flip(enemy_3_4,True,False)
+
+except:
+    pass

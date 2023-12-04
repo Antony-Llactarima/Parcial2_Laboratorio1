@@ -19,5 +19,8 @@ try:
 
     click_sound = pygame.mixer.Sound(os.path.join(dir_actual,"recursos\_sounds\click-menu-app-147357 (1).mp3"))
     click_sound.set_volume(0.5)
+    
+    golpe_sound = pygame.mixer.Sound(os.path.join(dir_actual,"recursos\_sounds\punch-1-166694.mp3"))
+    golpe_sound.set_volume(0.5)
 except:
     print("No se cargo los sonidos correctamente.")

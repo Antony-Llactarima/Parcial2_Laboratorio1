@@ -18,7 +18,8 @@ class Personaje:
         self.gravedad = True
     
     def definir_posicion(self, posicion:list):
-        self.posicion = posicion
+        self.posicion_inicial = posicion
+        self.posicion = self.posicion_inicial
         
         self.definir_limite()
     

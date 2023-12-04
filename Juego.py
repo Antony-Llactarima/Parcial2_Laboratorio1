@@ -11,9 +11,11 @@ from recursos._items.pos_coins import *
 from _carga_recursos._carga_puntaje.carga_puntaje import *
 from _carga_recursos._carga_sounds.carga_sound import *
 from _carga_recursos._carga_musica._carga_musica import *
+from recursos._enemigos.pos_enemigos import *
 
 
 class Juego:
+    # FUNCION CONSTRUCTOR
     def __init__(self):
         self.tam_screen = (1080,720)
         pygame.init()
@@ -83,7 +85,7 @@ class Juego:
                 elif event.key == pygame.K_c:
                     activado = self.eventos_menu(event.key)
                     self.eventos_selecc_niveles(event.key)
-                    self.eventos_puntajes(event.key)
+                    self.eventos_puntajes()
                     self.eventos_victoria(event.key)
                     self.eventos_game_over(event.key)
                     self.eventos_ajustes(event.key)
@@ -93,19 +95,7 @@ class Juego:
     def eventos_menu(self, event):
         juego_activo = True
         if screens.pantalla_menu.activo:
-            if event == pygame.K_LEFT:
-                self.play_sonidos('btn')
-                screens.pantalla_menu.mover_boton_x("left")
-            elif event == pygame.K_RIGHT:
-                self.play_sonidos('btn')
-                screens.pantalla_menu.mover_boton_x("right")
-            elif event == pygame.K_UP:
-                self.play_sonidos('btn')
-                screens.pantalla_menu.mover_boton_y("up")
-            elif event == pygame.K_DOWN:
-                self.play_sonidos('btn')
-                screens.pantalla_menu.mover_boton_y("down")
-            elif event == pygame.K_c:
+            if event == pygame.K_c:
                 self.play_sonidos('click')
                 if screens.pantalla_menu.pos_button == 1:
                     screens.pantalla_menu.desactivar_pantalla()
@@ -124,6 +114,16 @@ class Juego:
                     screens.pantalla_ajuste.limit_boton = 3
                 elif screens.pantalla_menu.pos_button == 4:
                     juego_activo = False
+            else:
+                self.play_sonidos('btn')
+                if event == pygame.K_LEFT:
+                    screens.pantalla_menu.mover_boton_x("left")
+                elif event == pygame.K_RIGHT:
+                    screens.pantalla_menu.mover_boton_x("right")
+                elif event == pygame.K_UP:
+                    screens.pantalla_menu.mover_boton_y("up")
+                elif event == pygame.K_DOWN:
+                    screens.pantalla_menu.mover_boton_y("down")
         return juego_activo
     
     # ZONA DE EL SELECCIONADOR DE NIVELES
@@ -132,13 +132,7 @@ class Juego:
             if screens.pantalla_niveles.primera_vuelta == 0:
                 screens.pantalla_niveles.primera_vuelta += 1
             else:
-                if event == pygame.K_LEFT:
-                    self.play_sonidos('btn')
-                    screens.pantalla_niveles.mover_boton_x("left")
-                elif event == pygame.K_RIGHT:
-                    screens.pantalla_niveles.mover_boton_x("right")
-                    self.play_sonidos('btn')
-                elif event == pygame.K_c:
+                if event == pygame.K_c:
                     self.play_sonidos('click')
                     if screens.pantalla_niveles.pos_button < 4:
                         self.play_musica('menu','stop')
@@ -149,25 +143,29 @@ class Juego:
                         screens.pantalla_niveles.desactivar_pantalla()
                         screens.pantalla_menu.activar_pantalla()
                     screens.pantalla_niveles.pos_button = 1
-                    screens.pantalla_niveles.primera_vuelta = 0
+                else:
+                    self.play_sonidos('btn')
+                    if event == pygame.K_LEFT:
+                        screens.pantalla_niveles.mover_boton_x("left")
+                    elif event == pygame.K_RIGHT:
+                        screens.pantalla_niveles.mover_boton_x("right")
     
     # ZONA DE EVENTOS DE LA PANTALLA DE PUNTAJES
-    def eventos_puntajes(self, event):
+    def eventos_puntajes(self):
         if screens.pantalla_puntaje.activo:
             if screens.pantalla_puntaje.primera_vuelta == 0:
                 screens.pantalla_puntaje.primera_vuelta += 1
             else:
-                if event == pygame.K_c:
-                    self.play_sonidos('click')
-                    if screens.pantalla_puntaje.pre_pantalla == 'menu':
-                        screens.pantalla_menu.activar_pantalla()
-                    elif screens.pantalla_puntaje.pre_pantalla == 'victoria':
-                        screens.pantalla_wins.activar_pantalla()
-                        screens.pantalla_wins.primera_vuelta = 0
-                    elif screens.pantalla_puntaje.pre_pantalla == 'game_over':
-                        screens.pantalla_game_over.activar_pantalla()
-                        screens.pantalla_game_over.primera_vuelta = 0
-                    screens.pantalla_puntaje.desactivar_pantalla()
+                self.play_sonidos('click')
+                if screens.pantalla_puntaje.pre_pantalla == 'menu':
+                    screens.pantalla_menu.activar_pantalla()
+                elif screens.pantalla_puntaje.pre_pantalla == 'victoria':
+                    screens.pantalla_wins.activar_pantalla()
+                    screens.pantalla_wins.primera_vuelta = 0
+                elif screens.pantalla_puntaje.pre_pantalla == 'game_over':
+                    screens.pantalla_game_over.activar_pantalla()
+                    screens.pantalla_game_over.primera_vuelta = 0
+                screens.pantalla_puntaje.desactivar_pantalla()
     
     # ZONA DE EVENTOS DE LA PANTALLA DE AJUSTE
     def eventos_ajustes(self, event):
@@ -185,7 +183,7 @@ class Juego:
                     self.play_sonidos('click')
                     self.ajuste_menu()
                     self.ajuste_juego()
-    
+    # AJUSTE INGRESADO DESDE EL MENU
     def ajuste_menu(self):
         if screens.pantalla_ajuste.pre_pantalla == 'menu':
             if screens.pantalla_ajuste.pos_button == 1:
@@ -201,7 +199,7 @@ class Juego:
                 screens.pantalla_menu.activar_pantalla()
                 screens.pantalla_ajuste.pos_button = 1
                 screens.pantalla_ajuste.primera_vuelta = 0
-    
+    # AJUSTE INGRESADO DESDE EL JUEGO
     def ajuste_juego(self):
         if screens.pantalla_ajuste.pre_pantalla == 'juego':
             if screens.pantalla_ajuste.pos_button == 1:
@@ -321,9 +319,9 @@ class Juego:
         if levels.nivel_1.activo:
             posicion = [100, 600]
         elif levels.nivel_2.activo:
-            posicion = [800,600]
+            posicion = [900,600]
         else:
-            posicion = [100,600]
+            posicion = [528,500]
         self.jugador.definir_posicion(posicion)
     
     # DETECCION DE TECLADO MIENTRAS SE ESTE JUGANDO
@@ -362,8 +360,22 @@ class Juego:
                 colisionismo = list_coins_nivel1[i].colision(self.jugador)
                 if colisionismo:
                     self.play_sonidos('coins')
+            for i in range(len(list_enemy_1_1)):
+                if list_enemy_1_1[i].activo:
+                    vida_old = self.jugador.vida
+                    list_enemy_1_1[i].colision(self.jugador)
+                    vida_new = self.jugador.vida
+                    if vida_old != vida_new:
+                        self.play_sonidos('golpe')
         elif levels.nivel_2.activo:
             self.jugador.update_posicion(list_nivel.lista_pos2, list_nivel.lista_limit2)
+            for i in range(len(list_enemy_1_2)):
+                if list_enemy_1_2[i].activo:
+                    vida_old = self.jugador.vida
+                    list_enemy_1_2[i].colision(self.jugador)
+                    vida_new = self.jugador.vida
+                    if vida_old != vida_new:
+                        self.play_sonidos('golpe')
             for i in range(len(list_coins_nivel2)):
                 colisionismo = list_coins_nivel2[i].colision(self.jugador)
                 if colisionismo:
@@ -391,13 +403,13 @@ class Juego:
             self.jugador.bajar_vida(1)
             self.play_sonidos('caida')
             self.posicionar_jugador()
-            if self.jugador.vida <= 0:
-                screens.pantalla_juego.desactivar_pantalla()
-                screens.pantalla_game_over.activar_pantalla()
-                screens.pantalla_game_over.primera_vuelta = 1
-                self.desactivar_niveles()
-                self.play_musica('juego','stop')
-                self.play_musica('menu','play')
+        if self.jugador.vida <= 0:
+            screens.pantalla_juego.desactivar_pantalla()
+            screens.pantalla_game_over.activar_pantalla()
+            screens.pantalla_game_over.primera_vuelta = 1
+            self.desactivar_niveles()
+            self.play_musica('juego','stop')
+            self.play_musica('menu','play')
     
     # DESACTIVAR NIVELES
     def desactivar_niveles(self):
@@ -419,11 +431,12 @@ class Juego:
     def draw_screen(self):
         self.screen.fill((0,0,0))
     
+    # ZONA DE DIBUJO DEL MENU
     def draw_menu(self):
         # FONDO DEL MENU ----------------------------------------------------------
         self.screen.blit(fondos['menu'], (0,0))
         self.screen.blit(img_extras['titulo'],(190,0))
-        self.screen.blit(dicc_coins['1'],(0,0))
+        self.screen.blit(dicc_enemy_3['1'],(0,0))
         # BOTONES ------------------------------------------------
         if screens.pantalla_menu.pos_button == 1:
             self.screen.blit(b_RaB_large['play'],(self.tam_screen[0] / 2 - 300, self.tam_screen[1] / 2 + 100))
@@ -445,6 +458,7 @@ class Juego:
         else:
             self.screen.blit(b_WaB_large['exit'],(self.tam_screen[0] / 2 + 100, self.tam_screen[1] / 2 + 200))
     
+    # ZONA DE DIBUJO DE LOS PUNTAJES
     def draw_puntajes(self):
         pos_y = 0
         fuente = pygame.font.SysFont('Sans serif',45)
@@ -470,6 +484,7 @@ class Juego:
                 pos_y += 35
         self.screen.blit(b_RaB_large['back'], (415,620))
     
+    # ZONA DE DIBUJO DE LA PANTALLA DE GAME OVER
     def draw_game_over(self):
         # FONDO DE PANTALLA DE GAME OVER
         self.screen.blit(fondos['game_over'], (0,0))
@@ -490,6 +505,7 @@ class Juego:
         else:
             self.screen.blit(b_WaB_large['menu'],(800,500))
     
+    # ZONA DE DIBUJO DE LA PANTALLA DE VICTORIA
     def draw_victoria(self):
         # FONDO DE LA PANTALLA DE VICTORIA
         self.screen.blit(fondos['victoria'], (0,0))
@@ -516,6 +532,7 @@ class Juego:
         pygame.draw.rect(self.screen,(255,255,255),((300,50),(500,100)))
         self.screen.blit(puntaje_total,(300,100))
     
+    # ZONA DE DIBUJO AJUSTE 
     def draw_options(self):
         # FONDO DE PANTALLA DE OPCIONES --------------------------------------
         self.screen.blit(fondos['options'], (0,0))
@@ -524,7 +541,7 @@ class Juego:
             self.draw_ajuste_menu()
         elif screens.pantalla_ajuste.pre_pantalla == 'juego':
             self.draw_ajuste_juego()
-    
+    # AJUSTE DE DIBUJO DE AJUSTE DESDE EL MENU
     def draw_ajuste_menu(self):
         if screens.pantalla_ajuste.pos_button == 1:
             self.screen.blit(b_RaB_cortos['music'],(440,300))
@@ -556,7 +573,7 @@ class Juego:
             self.screen.blit(b_RaB_large['back'], (415, 500))
         else:
             self.screen.blit(b_WaB_large['back'], (415, 500))
-    
+    # AJUSTE DE DIBUJO DE AJUSTE DESDE EL JUEGO
     def draw_ajuste_juego(self):
         if screens.pantalla_ajuste.pos_button == 1:
             self.screen.blit(b_RaB_large['continue'],(415,200))
@@ -599,6 +616,7 @@ class Juego:
         else:
             self.screen.blit(b_WaB_large['menu'],(415,600))
     
+    # AJUSTE DE DIBUJO DE SELECTOR DE NIVELES
     def draw_selecc_niveles(self):
         fuente = pygame.font.SysFont("Sans-serif",80)
         text_nivel1 = fuente.render("Nivel 1",0,(0,0,0))
@@ -641,6 +659,160 @@ class Juego:
         else:
             self.screen.blit(b_WaB_large['menu'],(820,300))
     
+    # DIBUJAR LOS ENEMIGOS DE LOS NIVELES   
+    def draw_enemigos(self):
+        if levels.nivel_1.activo:
+            for i in range(len(list_enemy_1_1)):
+                if list_enemy_1_1[i].activo:
+                    key = list_enemy_1_1[i].elegir_frame_enemy1()
+                    self.screen.blit(dicc_enemy_1[key],list_enemy_1_1[i].posicion)
+                    if i == 0:
+                        self.update_enemigo(list_enemy_1_1[i],2,0)
+                    elif i == 1:
+                        self.update_enemigo(list_enemy_1_1[i],6,0)
+                    elif i == 2:
+                        self.update_enemigo(list_enemy_1_1[i],7,0)
+        elif levels.nivel_2.activo:
+            for i in range(len(list_enemy_1_2)):
+                if list_enemy_1_2[i].activo:
+                    key = list_enemy_1_2[i].elegir_frame_enemy1()
+                    self.screen.blit(dicc_enemy_1[key],list_enemy_1_2[i].posicion)
+                    if i == 0:
+                        self.update_enemigo(list_enemy_1_2[i],14,0)
+                    elif i == 1:
+                        self.update_enemigo(list_enemy_1_2[i],13,0)
+            for i in range(len(list_enemy_2_2)):
+                if list_enemy_2_2[i].activo:
+                    key = list_enemy_2_2[i].elegir_frame_enemy2()
+                    self.screen.blit(dicc_enemy_2[key],list_enemy_2_2[i].posicion)
+                    list_enemy_2_2[i].mover_y()
+                    if list_enemy_2_2[i].limite[1] < list_enemy_2_2[i].posicion_inicial[1] - 100:
+                        list_enemy_2_2[i].direccion = "down"
+                    elif list_enemy_2_2[i].limite[1] > self.tam_screen[1]:
+                        list_enemy_2_2[i].direccion = "up"
+                    vida_old = self.jugador.vida
+                    list_enemy_2_2[i].colision(self.jugador)
+                    vida_new = self.jugador.vida
+                    if vida_old != vida_new:
+                        self.play_sonidos('golpe')
+            for i in range(len(list_enemy_3_2)):
+                if list_enemy_3_2[i].activo:
+                    key = list_enemy_3_2[i].elegir_frame_enemy3()
+                    self.screen.blit(dicc_enemy_3[key],list_enemy_3_2[i].posicion)
+                    self.update_enemigo(list_enemy_3_2[i],6,0)
+                    vida_old = self.jugador.vida
+                    list_enemy_3_2[i].colision(self.jugador)
+                    vida_new = self.jugador.vida
+                    if vida_old != vida_new:
+                        self.play_sonidos('golpe')
+        elif levels.nivel_3.activo:
+            for i in range(len(list_enemy_1_3)):
+                if list_enemy_1_3[i].activo:
+                    key = list_enemy_1_3[i].elegir_frame_enemy1()
+                    self.screen.blit(dicc_enemy_1[key],list_enemy_1_3[i].posicion)
+                    if i == 0:
+                        self.update_enemigo(list_enemy_1_3[i],11,0)
+                    elif i == 1:
+                        self.update_enemigo(list_enemy_1_3[i],12,0)
+                    vida_old = self.jugador.vida
+                    list_enemy_1_3[i].colision(self.jugador)
+                    vida_new = self.jugador.vida
+                    if vida_old != vida_new:
+                        self.play_sonidos('golpe')
+            
+            for i in range(len(list_enemy_2_3)):
+                if list_enemy_2_3[i].activo:
+                    key = list_enemy_2_3[i].elegir_frame_enemy2()
+                    self.screen.blit(dicc_enemy_2[key],list_enemy_2_3[i].posicion)
+                    list_enemy_2_3[i].mover_y()
+                    if list_enemy_2_3[i].limite[1] < list_enemy_2_3[i].posicion_inicial[1] - 100:
+                        list_enemy_2_3[i].direccion = "down"
+                    elif list_enemy_2_3[i].limite[1] > self.tam_screen[1]:
+                        list_enemy_2_3[i].direccion = "up"
+                    vida_old = self.jugador.vida
+                    list_enemy_2_3[i].colision(self.jugador)
+                    vida_new = self.jugador.vida
+                    if vida_old != vida_new:
+                        self.play_sonidos('golpe')
+            
+            for i in range(len(list_enemy_3_3)):
+                if list_enemy_3_3[i].activo:
+                    key = list_enemy_3_3[i].elegir_frame_enemy3()
+                    self.screen.blit(dicc_enemy_3[key],list_enemy_3_3[i].posicion)
+                    if i == 0:
+                        self.update_enemigo(list_enemy_3_3[i],9,1)
+                    elif i == 1:
+                        self.update_enemigo(list_enemy_3_3[i],9,2)
+                    vida_old = self.jugador.vida
+                    list_enemy_3_3[i].colision(self.jugador)
+                    vida_new = self.jugador.vida
+                    if vida_old != vida_new:
+                        self.play_sonidos('golpe')
+    
+    def update_enemigo(self,enemigo,pos_plataforma,e_3):
+        if levels.nivel_1.activo:
+            if enemigo.limite[0] < list_nivel.lista_limit1[pos_plataforma][0] and enemigo.cambiar_direccion == False:
+                enemigo.direccion = 'right'
+            else:
+                enemigo.cambiar_direccion = True
+            if enemigo.posicion[0] > list_nivel.lista_pos1[pos_plataforma][0] and enemigo.cambiar_direccion == True:
+                enemigo.direccion = 'left'
+            else:
+                enemigo.cambiar_direccion = False
+            enemigo.mover_x()
+        elif levels.nivel_2.activo:
+            if enemigo.nombre == "1":
+                if enemigo.limite[0] < list_nivel.lista_limit2[pos_plataforma][0] and enemigo.cambiar_direccion == False:
+                    enemigo.direccion = 'right'
+                else:
+                    enemigo.cambiar_direccion = True
+                if enemigo.posicion[0] > list_nivel.lista_pos2[pos_plataforma][0] and enemigo.cambiar_direccion == True:
+                    enemigo.direccion = 'left'
+                else:
+                    enemigo.cambiar_direccion = False
+                enemigo.mover_x()
+            else:
+                if enemigo.limite[0] < list_nivel.lista_limit2[pos_plataforma][0] and enemigo.cambiar_direccion == False:
+                    enemigo.direccion = 'right'
+                else:
+                    enemigo.cambiar_direccion = True
+                if enemigo.posicion[0] > list_nivel.lista_pos2[pos_plataforma][0] and enemigo.cambiar_direccion == True:
+                    enemigo.direccion = 'left'
+                else:
+                    enemigo.cambiar_direccion = False
+                enemigo.mover_x()
+        elif levels.nivel_3.activo:
+            if enemigo.nombre == "1":
+                if enemigo.limite[0] < list_nivel.lista_limit3[pos_plataforma][0] and enemigo.cambiar_direccion == False:
+                    enemigo.direccion = 'right'
+                else:
+                    enemigo.cambiar_direccion = True
+                if enemigo.posicion[0] > list_nivel.lista_pos3[pos_plataforma][0] and enemigo.cambiar_direccion == True:
+                    enemigo.direccion = 'left'
+                else:
+                    enemigo.cambiar_direccion = False
+                enemigo.mover_x()
+            elif e_3 == 1:
+                if enemigo.limite[0] < list_nivel.lista_pos2[pos_plataforma][0] and enemigo.cambiar_direccion == False:
+                    enemigo.direccion = 'right'
+                else:
+                    enemigo.cambiar_direccion = True
+                if enemigo.posicion[0] > list_nivel.lista_pos3[pos_plataforma][0] and enemigo.cambiar_direccion == True:
+                    enemigo.direccion = 'left'
+                else:
+                    enemigo.cambiar_direccion = False
+                enemigo.mover_x()
+            elif e_3 == 2:
+                if enemigo.limite[0] < list_nivel.lista_limit3[pos_plataforma][0] and enemigo.cambiar_direccion == False:
+                    enemigo.direccion = 'right'
+                else:
+                    enemigo.cambiar_direccion = True
+                if enemigo.posicion[0] > 552 and enemigo.cambiar_direccion == True:
+                    enemigo.direccion = 'left'
+                else:
+                    enemigo.cambiar_direccion = False
+                enemigo.mover_x()
+    
     # PEGAR LOS SPRITES EN PANTALLA MIENTRAS SE JUEGA
     def draw_juego(self):
         if levels.nivel_1.activo:
@@ -648,14 +820,17 @@ class Juego:
             # PLATAFORMAS DEL NIVEL 1-------------------------------------
             self.pegar_plataformas(list_nivel.lista_pos1,dicc_plat['plat'],list_nivel.lista_tam1)
             self.pegar_items(list_coins_nivel1,dicc_coins['1'])
+            self.draw_enemigos()
         elif levels.nivel_2.activo:
             self.screen.blit(fondos_niveles['nivel_2'],(0,0))
             # PLATAFORMAS DEL NIVEL 2-------------------------------------
             self.pegar_plataformas(list_nivel.lista_pos2,dicc_plat['plat'],list_nivel.lista_tam2)
+            self.draw_enemigos()
             self.pegar_items(list_coins_nivel2,dicc_coins['1'])
         elif levels.nivel_3.activo:
             self.screen.blit(fondos_niveles['nivel_3'],(0,0))
             # PLATAFORMAS DEL NIVEL 3-------------------------------------
+            self.draw_enemigos()
             self.pegar_plataformas(list_nivel.lista_pos3,dicc_plat['plat'],list_nivel.lista_tam3)
             self.pegar_items(list_coins_nivel3,dicc_coins['1'])
         
@@ -772,7 +947,6 @@ class Juego:
                 update_puntajes(self.jugador.puntaje,3)
             self.play_musica('juego','stop')
             self.play_musica('menu','play')
-            self.desactivar_niveles()
     
     # PEGAR LOS SPRITES DE LAS PLATAFORMAS
     def pegar_plataformas(self,list_pos, plata, list_tam):
@@ -795,6 +969,8 @@ class Juego:
                     btn_sound.play()
                 elif sound == 'click':
                     click_sound.play()
+                elif sound == 'golpe':
+                    golpe_sound.play()
             except:
                 print("No se cargo correctamente los sonidos")
         else:
