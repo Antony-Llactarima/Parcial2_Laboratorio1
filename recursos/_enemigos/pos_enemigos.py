@@ -9,7 +9,7 @@ def crear_enemigos(nivel_enemigo,cant_enemigos):
         elif nivel_enemigo == 2:
             lista_enemigos.append(Enemigos("2",1,4,[50,60],'up'))
         elif nivel_enemigo == 3:
-            lista_enemigos.append(Enemigos("3",1,10,[30,30],'right'))
+            lista_enemigos.append(Enemigos("3",1,15,[30,30],'right'))
     return lista_enemigos
 
 # ENEMIGOS PARA EL NIVEL 1

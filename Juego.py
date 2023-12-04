@@ -287,15 +287,18 @@ class Juego:
                         screens.pantalla_game_over.desactivar_pantalla()
                         screens.pantalla_niveles.activar_pantalla()
                         screens.pantalla_niveles.primera_vuelta = 1
+                        self.desactivar_niveles()
                     elif screens.pantalla_game_over.pos_button == 2:
                         screens.pantalla_puntaje.guardar_ultima_pantalla("game_over")
                         screens.pantalla_game_over.desactivar_pantalla()
                         screens.pantalla_puntaje.activar_pantalla()
                         screens.pantalla_puntaje.primera_vuelta = 1
+                        # self.desactivar_niveles()
                     elif screens.pantalla_game_over.pos_button == 3:
                         screens.pantalla_game_over.desactivar_pantalla()
                         screens.pantalla_menu.activar_pantalla()
                         screens.pantalla_game_over.pos_button = 1
+                        self.desactivar_niveles()
     
     # ACTIVADOR DE NIVELES
     def activar_nivel(self, nivel):
@@ -390,11 +393,18 @@ class Juego:
         self.jugador.ticks_run += 1
         if self.jugador.ticks_run % 30 == 0:
             self.jugador.tiempo_tick += 1
-            if self.jugador.tiempo_tick > 30:
-                screens.pantalla_juego.desactivar_pantalla()
-                screens.pantalla_game_over.activar_pantalla()
-                screens.pantalla_game_over.primera_vuelta = 1
-                self.desactivar_niveles()
+            if self.jugador.tiempo_tick > 60:
+                screens.pantalla_wins.activar_pantalla()
+                screens.pantalla_wins.primera_vuelta = 1
+                screens.pantalla_wins.pos_button = 1
+                self.jugador.puntaje = self.jugador.puntaje + (60 - self.jugador.tiempo_tick) * 5
+                self.jugador.puntaje += self.jugador.vida * 5
+                if levels.nivel_1.activo:
+                    update_puntajes(self.jugador.puntaje,1)
+                elif levels.nivel_2.activo:
+                    update_puntajes(self.jugador.puntaje,2)
+                elif levels.nivel_3.activo:
+                    update_puntajes(self.jugador.puntaje,3)
                 self.play_musica('juego','stop')
                 self.play_musica('menu','play')
         
@@ -407,7 +417,15 @@ class Juego:
             screens.pantalla_juego.desactivar_pantalla()
             screens.pantalla_game_over.activar_pantalla()
             screens.pantalla_game_over.primera_vuelta = 1
-            self.desactivar_niveles()
+            screens.pantalla_game_over.pos_button = 1
+            self.jugador.puntaje = self.jugador.puntaje + (60 - self.jugador.tiempo_tick) * 5
+            self.jugador.puntaje += self.jugador.vida * 5
+            if levels.nivel_1.activo:
+                update_puntajes(self.jugador.puntaje,1)
+            elif levels.nivel_2.activo:
+                update_puntajes(self.jugador.puntaje,2)
+            elif levels.nivel_3.activo:
+                update_puntajes(self.jugador.puntaje,3)
             self.play_musica('juego','stop')
             self.play_musica('menu','play')
     
@@ -504,6 +522,11 @@ class Juego:
             self.screen.blit(b_RaB_large['menu'],(800,500))
         else:
             self.screen.blit(b_WaB_large['menu'],(800,500))
+        # PUNTAJE LOGRADO
+        fuente = pygame.font.SysFont('Sans serif',60)
+        puntaje_total = fuente.render(f"Puntaje Alcanzado:{self.jugador.puntaje}",0,(0,0,0))
+        pygame.draw.rect(self.screen,(255,255,255),((300,300),(500,100)))
+        self.screen.blit(puntaje_total,(300,300))
     
     # ZONA DE DIBUJO DE LA PANTALLA DE VICTORIA
     def draw_victoria(self):
@@ -916,7 +939,7 @@ class Juego:
             if self.tick >= 20:
                 self.tick = 0
         fuente = pygame.font.SysFont("Sans-serif",60)
-        tiempo = fuente.render(f"Tiempo:{self.jugador.tiempo_tick}//30",0,(255,255,255))
+        tiempo = fuente.render(f"Tiempo:{self.jugador.tiempo_tick}//60",0,(255,255,255))
         self.screen.blit(tiempo,(800,0))
         
         puntaje = fuente.render(f"Puntos:{self.jugador.puntaje}",0,(255,255,255))
@@ -937,7 +960,7 @@ class Juego:
             screens.pantalla_wins.activar_pantalla()
             screens.pantalla_wins.primera_vuelta = 1
             screens.pantalla_wins.pos_button = 1
-            self.jugador.puntaje = self.jugador.puntaje + (30 - self.jugador.tiempo_tick) * 10
+            self.jugador.puntaje = self.jugador.puntaje + (60 - self.jugador.tiempo_tick) * 10
             self.jugador.puntaje += self.jugador.vida * 10
             if levels.nivel_1.activo:
                 update_puntajes(self.jugador.puntaje,1)
